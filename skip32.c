@@ -176,10 +176,18 @@ static PyMethodDef Skip32Methods[] =
     {NULL, NULL, 0, NULL}
 };
 
+static struct PyModuleDef skip32ModuleDef =
+{
+		PyModuleDef_HEAD_INIT,
+		"skip32",										/* name of module */
+		"Python Skip32 wrapper.",   /* module documentation, may be NULL */
+		-1,													/* size of per-interpreter state of the module, or -1 if the module keeps state in global variables. */
+		Skip32Methods
+};
+
 PyMODINIT_FUNC
-initskip32(void)
+PyInit_skip32(void)
 {
     assert(sizeof(int) == 4);
-
-    (void) Py_InitModule("skip32", Skip32Methods);
+    return PyModule_Create(&skip32ModuleDef);
 }
