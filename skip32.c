@@ -12,7 +12,7 @@
     29 May 1998
 
     Not copyright, no rights reserved.
-    
+
     Keith Bussell: Added python wrapping code 7/11/2008
  */
 
@@ -91,7 +91,7 @@ static PyObject* test(PyObject* self, PyObject* args)
 {
     BYTE        in[4] = { 0x33,0x22,0x11,0x00 };
     BYTE        key[10] = { 0x00,0x99,0x88,0x77,0x66,0x55,0x44,0x33,0x22,0x11 };
-    
+
     skip32_impl(key, in, 1);
     printf("%02x%02x%02x%02x\n", in[0], in[1], in[2], in[3]);
     if (in[0] != 0x81 || in[1] != 0x9d || in[2] != 0x5f || in[3] != 0x1f) {
@@ -123,13 +123,13 @@ static PyObject* skip32_encrypt(PyObject* self, PyObject* args)
 
     if (key_len != 10)
         return NULL;
-    
+
     memcpy(&buf, &input, 4);
-    
+
     skip32_impl(key, (BYTE*)&buf, 1);
-    
+
     memcpy(&encrypted, &buf, 4);
-    
+
     return PyLong_FromUnsignedLong(encrypted);
 }
 
@@ -146,13 +146,13 @@ static PyObject* skip32_decrypt(PyObject* self, PyObject* args)
 
     if (key_len != 10)
         return NULL;
-    
+
     memcpy(&buf, &input, 4);
-    
+
     skip32_impl(key, (BYTE*)&buf, 0);
-    
+
     memcpy(&decrypted, &buf, 4);
-    
+
     return PyLong_FromUnsignedLong(decrypted);
 }
 
@@ -168,6 +168,6 @@ PyMODINIT_FUNC
 initskip32(void)
 {
     assert(sizeof(int) == 4);
-    
+
     (void) Py_InitModule("skip32", Skip32Methods);
 }
