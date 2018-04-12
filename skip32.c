@@ -119,10 +119,16 @@ static PyObject* skip32_encrypt(PyObject* self, PyObject* args)
     unsigned int encrypted;
 
     if (!PyArg_ParseTuple(args, "z#I", &key, &key_len, &input))
+		{
+				PyErr_SetString(PyExc_RuntimeError, "Unable to parse arguments");
         return NULL;
+		}
 
     if (key_len != 10)
+		{
+				PyErr_SetString(PyExc_RuntimeError, "Key length is not 10");
         return NULL;
+		}
 
     memcpy(&buf, &input, 4);
 
@@ -142,10 +148,16 @@ static PyObject* skip32_decrypt(PyObject* self, PyObject* args)
     unsigned int decrypted;
 
     if (!PyArg_ParseTuple(args, "z#I", &key, &key_len, &input))
+		{
+				PyErr_SetString(PyExc_RuntimeError, "Unable to parse arguments");
         return NULL;
+		}
 
     if (key_len != 10)
+		{
+				PyErr_SetString(PyExc_RuntimeError, "Key length is not 10");
         return NULL;
+		}
 
     memcpy(&buf, &input, 4);
 
